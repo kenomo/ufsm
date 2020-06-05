@@ -7,7 +7,7 @@
  *
  */
 
-#include <ufsm.h>
+#include "ufsm.h"
 
 uint32_t ufsm_queue_put(struct ufsm_queue *q, uint32_t ev)
 {

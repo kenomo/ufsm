@@ -10,8 +10,31 @@
 #ifndef UFSM_H
 #define UFSM_H
 
-#include <stdint.h>
+#ifndef STANDALONE
+#ifndef TWINCAT
+#define TWINCAT
+#endif
+#endif
+
+#include "../../util/Util.h"
+#ifdef TWINCAT
+
+#include "platform/Common/crt/stdbool.h"  // <- is empty <- engineering by Beckhoff
+#include "platform/Common/crt/stdint.h"
+
+// stdbool.h
+#define bool unsigned int
+#define true 1
+#define false 0
+
+#else
+
 #include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+
+#endif
+
 
 /* Error codes */
 

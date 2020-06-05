@@ -7,7 +7,7 @@
  *
  */
 
-#include <ufsm.h>
+#include "ufsm.h"
 
 uint32_t ufsm_stack_init(struct ufsm_stack *stack,
                         uint32_t no_of_elements,

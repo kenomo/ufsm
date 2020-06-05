@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <ufsm.h>
+#include "ufsm.h"
 
 static char *state_simple = "Simple State";
 static char *state_composite = "Composite State";
@@ -53,70 +52,70 @@ static void debug_transition (struct ufsm_transition *t)
             dest_type = state_submachine;
     }
 
-    printf ("    | Transition | %s {%s} --> %s {%s} T=", t->source->name,
+    PRINTF ("    | Transition | %s {%s} --> %s {%s} T=", t->source->name,
                                             source_type,
                                             t->dest->name,
                                             dest_type);
 
     for (struct ufsm_trigger *tt = t->trigger;tt;tt=tt->next)
     {
-        printf ("%s ", tt->name);
+        PRINTF ("%s ", tt->name);
     }
 
     if (t->trigger == NULL)
-        printf ("COMPLETION");
+        PRINTF ("COMPLETION");
 
-    printf("\n");
+    PRINTF("\n");
 }
 
 static void debug_enter_region(struct ufsm_region *r)
 {
-    printf ("    | R enter    | %s, H=%i\n", r->name, r->has_history);
+    PRINTF ("    | R enter    | %s, H=%i\n", r->name, r->has_history);
 }
 
 static void debug_leave_region(struct ufsm_region *r)
 {
-    printf ("    | R exit     | %s, H=%i\n", r->name, r->has_history);
+    PRINTF ("    | R exit     | %s, H=%i\n", r->name, r->has_history);
 }
 
 static void debug_event(uint32_t ev)
 {
-    printf (" %-3i|            |\n",ev);
+    PRINTF (" %-3i|            |\n",ev);
 }
 
 static void debug_action(struct ufsm_action *a)
 {
-    printf ("    | Action     | %s()\n",a->name);
+    PRINTF ("    | Action     | %s()\n",a->name);
 }
 
 static void debug_guard(struct ufsm_guard *g, bool result) 
 {
-    printf ("    | Guard      | %s() = %i\n", g->name, result);
+    PRINTF ("    | Guard      | %s() = %i\n", g->name, result);
 }
 
 static void debug_enter_state(struct ufsm_state *s)
 {
-    printf ("    | S enter    | %s {%s}\n", s->name,get_state_type(s));
+    PRINTF ("    | S enter    | %s {%s}\n", s->name,get_state_type(s));
 }
 
 static void debug_exit_state(struct ufsm_state *s)
 {
-    printf ("    | S exit     | %s {%s}\n", s->name,get_state_type(s));
+    PRINTF ("    | S exit     | %s {%s}\n", s->name,get_state_type(s));
 }
 
 static void debug_reset(struct ufsm_machine *m)
 {
-    printf (" -- | RESET      | %s\n", m->name);
+    PRINTF (" -- | RESET      | %s\n", m->name);
 }
 
 static void debug_entry_exit(struct ufsm_entry_exit *e)
 {
-    printf ("    | Call       | %s\n", e->name);
+    PRINTF ("    | Call       | %s\n", e->name);
 }
 
 void ufsm_debug_machine(struct ufsm_machine *m)
 {
-    printf (" EV |     OP     | Details\n");
+    PRINTF (" EV |     OP     | Details\n");
 
     m->debug_transition = &debug_transition;
     m->debug_enter_region = &debug_enter_region;
