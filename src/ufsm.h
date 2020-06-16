@@ -17,15 +17,25 @@
 #endif
 
 #include "../../util/Util.h"
+
+#ifndef __cplusplus
 #ifdef TWINCAT
 
-#include "platform/Common/crt/stdbool.h"  // <- is empty <- engineering by Beckhoff
-#include "platform/Common/crt/stdint.h"
+#include <platform/Common/crt/stdbool.h>  // <- is empty <- engineering by Beckhoff
+#include <platform/Common/crt/stdint.h>
 
 // stdbool.h
+#ifndef bool
 #define bool unsigned int
+#endif
+
+#ifndef true
 #define true 1
+#endif
+
+#ifndef false
 #define false 0
+#endif
 
 #else
 
@@ -34,7 +44,7 @@
 #include <stdio.h>
 
 #endif
-
+#endif
 
 /* Error codes */
 
