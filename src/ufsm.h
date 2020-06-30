@@ -26,7 +26,7 @@
 
 // stdbool.h
 #ifndef bool
-#define bool unsigned int
+#define bool _Bool
 #endif
 
 #ifndef true
@@ -35,6 +35,10 @@
 
 #ifndef false
 #define false 0
+#endif
+
+#ifndef __bool_true_false_are_defined
+#define __bool_true_false_are_defined 1
 #endif
 
 #else
@@ -109,6 +113,7 @@ typedef void (*ufsm_doact_func_t) (struct ufsm_machine *m,
                                    ufsm_doact_cb_t cb);
 
 /* Debug callbacks */
+typedef void(*ufsm_debug_string_t) (char* str);
 typedef void (*ufsm_debug_event_t) (uint32_t ev);
 typedef void (*ufsm_debug_transition_t) (struct ufsm_transition *t);
 typedef void (*ufsm_debug_enter_region_t) (struct ufsm_region *region);
@@ -170,6 +175,7 @@ struct ufsm_machine
 {
     const char *id;
     const char *name;
+	ufsm_debug_string_t debug_string;
     ufsm_debug_event_t debug_event;
     ufsm_debug_transition_t debug_transition;
     ufsm_debug_enter_region_t debug_enter_region;
